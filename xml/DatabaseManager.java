@@ -14,12 +14,17 @@ public class DatabaseManager {
             Connection con = DriverManager.getConnection(
                     url, username, password);
             Statement statement = con.createStatement();
-            for (Employee emp : employeeList1) {
-                statement.execute("INSERT INTO `employees`.`employee` (`employeeId`, `firstName`, `lastName`, `email`, `baseSalary`) VALUES ('" +
-                        emp.getEmployeeId() + "', '" + emp.getFirstName() + "', '" + emp.getLastName() + "', '" + emp.getEmail() +
-                        "', '" + emp.getBaseSalary() + "');");
-            }
-        } catch (SQLException e) {
+             for (Employee emp : employeeList1) {
+                if(emp.getEmployeeId()==0) {
+                    statement.execute("INSERT INTO `employees`.`employee` (`firstName`, `lastName`, `email`, `baseSalary`) VALUES ('" + emp.getFirstName() + "', '" + emp.getLastName() + "', '" + emp.getEmail() +
+                            "', '" + emp.getBaseSalary() + "');");
+                }else{
+                    statement.executeUpdate("UPDATE `employees`.`employee` SET `firstName` = '" + emp.getFirstName() + "', `lastName` = '" + emp.getLastName() + "', `email` = '"+emp.getEmail() +
+                                "', `baseSalary` = '" + emp.getBaseSalary() + "' WHERE (`employeeId` = '" + emp.getEmployeeId() + "');");
+                    }
+                }
+
+        }catch (SQLException e) {
             e.printStackTrace();
         }
 
