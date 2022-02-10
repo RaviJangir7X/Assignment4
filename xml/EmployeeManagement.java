@@ -13,8 +13,8 @@ public class EmployeeManagement {
 
         List<Employee> employee = EmployeeXmlParser.parsing(path);
         DatabaseManager.insertingInDatabase(employee);
-       List<Employee> employeeList = DatabaseManager.fetchingFromDatabase();
+        List<Employee> employeeList = DatabaseManager.fetchingFromDatabase();
 
-        Display.printEmployeeInfo(employeeList);
+        SalarySlip.printSalary(employeeList);
     }
 }
